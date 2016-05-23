@@ -128,29 +128,12 @@ class Pairer(object):
 
 
 if __name__ == "__main__":
-    student = ["Alexander",
-                "Bryan",
-                "Cindy",
-                "Crystal",
-                "Daniel G",
-                "Daniel T",
-                "Eric",
-                "Everett",
-                "Haizhen",
-                "John",
-                "Justin",
-                "Miles",
-                "Monika",
-                "Srikanth", 
-                "Swathi",
-                "Tetyana",
-                "Timothy",
-                "Yeongcheon"
-                ]
+    with open(sys.argv[1]) as studentfile:
+        student = [ line.strip() for line in studentfile.readlines() ]
 
     p = Pairer(len(student))
-    day = int(sys.argv[1])
+    day = int(sys.argv[2])
     pairing = prettify(p.get_pairing(day))
     print "Recommended partnerships - day {0} of {1}:".format(day, len(student)-1)
-    for (a, b) in pairing:
-        print "{0}, {1}".format(student[a], student[b])
+    for tup in pairing:
+        print ", ".join([ student[a] for a in tup ])
