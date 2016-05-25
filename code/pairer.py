@@ -126,14 +126,32 @@ class Pairer(object):
         p2 = get_pairing_double_odd(r, self.a)
         return combine_pairings(p1, p2, self.a)
 
+def usage():
+    print "Usage:   python pairer.py <cohortfile> <day>"
+    print "Example: python pairer.py cohort4 1"
+
 
 if __name__ == "__main__":
-    with open(sys.argv[1]) as studentfile:
-        student = [ line.strip() for line in studentfile.readlines() ]
+    if len(sys.argv) < 3:
+        usage()
+        sys.exit()
+    try:
+        with open(sys.argv[1]) as studentfile:
+            student = [ line.strip() for line in studentfile.readlines() ]
+    except:
+        usage()
+        sys.exit()
 
     p = Pairer(len(student))
-    day = int(sys.argv[2])
+    try:
+        day = int(sys.argv[2])
+    except:
+        print "<day> must be an integer between 1 and {0}".format(len(student)-1)
+        usage()
+        sys.exit()
+
     pairing = prettify(p.get_pairing(day))
     print "Recommended partnerships - day {0} of {1}:".format(day, len(student)-1)
     for tup in pairing:
         print ", ".join([ student[a] for a in tup ])
+
