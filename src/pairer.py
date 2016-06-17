@@ -1,5 +1,4 @@
-#!/usr/bin/python
-
+from __future__ import (division, print_function)
 import itertools
 import sys
 
@@ -9,7 +8,7 @@ def f(k, b):
     Canonical translation from k -> (r,s)
     Finds (r, s) such that s < self.a and r * self.b + s = k
     """
-    return k / b, k % b
+    return k // b, k % b
 
 
 def finv(r, s, b):
@@ -72,19 +71,19 @@ def get_pairing_double_odd(r, a):
         for i in range(a):
             result.append((i, i))
         return result
-    elif r < a/2:
+    elif r < a//2:
         q = 2 * r - 1
         # skip the case where q = a/2
-        if q >= a/2:
+        if q >= a//2:
             q += 2
         for i in range(0, a-1, 2):
             result.append((i, (i+q)%a))
         return result
     else:
         assert(r < a)
-        q = r - a/2
-        result.append((q, (q+a/2)%a))
-        for i in range(1, a/2):
+        q = r - a//2
+        result.append((q, (q+a//2)%a))
+        for i in range(1, a//2):
             result.append(((q - i + a) % a, (q + i) % a))
         return result
 
@@ -113,7 +112,7 @@ class Pairer(object):
         a = n
         b = 1
         while a % 4 == 0:
-            a /= 2
+            a //= 2
             b *= 2
         # a is an even number not divisible by 4
         self.a = a
@@ -127,8 +126,8 @@ class Pairer(object):
         return combine_pairings(p1, p2, self.a)
 
 def usage():
-    print "Usage:   python pairer.py <cohortfile> <day>"
-    print "Example: python pairer.py cohort4 1"
+    print("Usage:   python pairer.py <cohortfile> <day>")
+    print("Example: python pairer.py cohort4 1")
 
 
 if __name__ == "__main__":
@@ -146,12 +145,12 @@ if __name__ == "__main__":
     try:
         day = int(sys.argv[2])
     except:
-        print "<day> must be an integer between 1 and {0}".format(len(student)-1)
+        print("<day> must be an integer between 1 and {0}".format(len(student)-1))
         usage()
         sys.exit()
 
     pairing = prettify(p.get_pairing(day))
-    print "Recommended partnerships - day {0} of {1}:".format(day, len(student)-1)
+    print("Recommended partnerships - day {0} of {1}:".format(day, len(student)-1))
     for tup in pairing:
-        print ", ".join([ student[a] for a in tup ])
+        print(", ".join([ student[a] for a in tup ]))
 
