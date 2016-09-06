@@ -1,10 +1,11 @@
+from __future__ import (division, print_function)
 from pairer import *
 import nose.tools as n
 
 
 def test_init():
     p = Pairer(20)
-    print type(p)
+    print(type(p))
     n.assert_equal(p.a, 10)
     n.assert_equal(p.b, 2)
 
@@ -26,4 +27,8 @@ def test_get_pairing_power_of_2():
 def test_combine_pairings():
     p1 = get_pairing_power_of_2(3, 4)
     p2 = get_pairing_power_of_2(1, 4)
-    n.assert_equal(combine_pairings(p1, p2, 4), [(0, 13), (1, 12), (2, 15), (3, 14), (4, 9), (5, 8), (6, 11), (7, 10), (8, 5), (9, 4), (10, 7), (11, 6), (12, 1), (13, 0), (14, 3), (15, 2)])
+    n.assert_equal(combine_pairings(p1, p2, 4),
+                   [(0, 13), (1, 12), (2, 15), (3, 14), (4, 9), (5, 8), (6, 11), (7, 10),
+                    (8, 5), (9, 4), (10, 7), (11, 6), (12, 1), (13, 0), (14, 3), (15, 2)]
+                  )
+
